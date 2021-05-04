@@ -1,0 +1,68 @@
+{
+  "user": {
+    "name": { "Type": "string" },
+    "role": { "Type": "string" },
+    "company": { "Type": "string" },
+    "bio": { "Type": "string" },
+    "image": { "Type": "string" },
+  }
+}
+
+{
+    "company": {
+      "address": { "Type": "string" },
+      "description": { "Type": "string" },
+      "image": { "Type": "string" },
+      "longDescription": { "Type": "string" },
+      "name": { "Type": "string" },
+      "phone": { "Type": "string" },
+      "userEmail": { "Type": "string" },
+    }
+}
+
+{
+    "problem": {
+      "company": { "Type": "string" },
+      "companyID": { "Type": "string" },
+      "description": { "Type": "string" },
+      "location": { "Type": "string" },
+      "title": { "Type": "string" },
+      "userEmail": { "Type": "string" }
+    }
+}
+
+{
+    "blog": {
+      "author": { "Type": "string" },
+      "authorImage": { "Type": "string" },
+      "date": { "Type": "string" },
+      "image": { "Type": "string" },
+      "longDesc": { "Type": "string" },
+      "shortDesc": { "Type": "string" },
+      "title": { "Type": "string" },
+      "userEmail": { "Type": "string" }
+
+    }
+}
+
+
+{
+    "orders": {
+      "amount": { "Type": "string" },
+      "basket": { "Type": "array" },
+      "created": { "Type": "number" }
+    }
+}
+
+
+{
+    "basket": [
+        0:{
+            "id": { "Type": "string" },
+            "image": { "Type": "string" },
+            "price": { "Type": "number" },
+            "rating": { "Type": "number" },
+            "title": { "Type": "number" }
+        }
+    ]
+}

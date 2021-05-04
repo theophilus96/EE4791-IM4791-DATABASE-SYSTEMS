@@ -1,0 +1,147 @@
+1.Contrast the following terms: 
+1a) base table; view;
+
+A table is a collection of related data entries
+and it consits of columns
+and rows Every table is broken up into smaller entities called fields.A field is a column
+ in a table that is designed ot maintain specific information about every record in the
+  table;
+From the table you are able to create queries to selection the fields that
+ you would like to find, However, for views, the query is already pre - selected
+  for you such that you are unable to change it;
+
+Teacher answer;
+- they both look like tables;
+- base tables store raw data and not derived data;
+- a view is a query result from a base table or from other views;
+- a view may join multiple tables or views together and may contain derived columns;
+
+1b)
+where clause;
+having clause;
+
+
+The WHERE clause is used to filter records,
+it is used to extract only those records that fulfill a specified condtion
+
+The HAVING clause is used because the WHERE clause cannot be used with
+aggregate functions.
+
+Teacher answer:
+They both specify conditions in a query.
+The WHERE clause is for specifying conditions
+on selecting a single row in the select command.
+
+While the HAVING clause is for specifying conditions
+for selecting groups of rows under the GROUP BY clause
+of the SELECT statement.
+
+
+2. Explain how a view can be used to reinforce data security.
+
+A view can be created for seperate groups of people.
+These groups can be people of different authorization.
+This is to control the information available to people of 
+different authorization.
+
+Teacher answer:
+- Tables and columns that are not included in a view
+ will not be exposed to the user or programmer of the view,
+ minimizing the risk of unauthorized access or data corruption.
+
+- Restricting access to a view (with GRANT and REVOKE statements
+in the Data control languange of SQL) adds a further layer of
+security
+
+
+3a.
+CREATE TABLE Student (
+StudentID int(8) NOT NULL,
+StudentName char(30) NOT NULL,
+CONSTRAINT Student PRIMARY KEY (StudentID)
+);
+
+CREATE TABLE Course(
+CourseID char(8) NOT NULL,
+CourseName Char(30) NOT NULL,
+CONSTRAINT Course PRIMARY KEY (CourseID)
+);
+
+CREATE TABLE Tutorial(
+TutorialID int(8) NOT NULL,
+CourseID char(30) NOT NULL,
+CONSTRAINT Tutorial PRIMARY KEY (TutorialID),
+CONSTRAINT Tutorial_FK FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+CREATE TABLE IsRegistered(
+StudentID int(8) NOT NULL,
+TutorialID int(8) NOT NULL,
+Semeseter char(7),
+CONSTRAINT IsRegistered_PK PRIMARY KEY (StudentID, TutorialID),
+CONSTRAINT IsRegistered_FK1 FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+CONSTRAINT IsRegistered_FK2 FOREIGN KEY (TutorialID) REFERENCES Tutorial(TutorialID)
+);
+
+3b.
+
+SELECT CourseID,CourseName 
+FROM Course
+WHERE CourseID LIKE "ISM%"
+
+3c.
+
+CREATE VIEW StudentList AS 
+SELECT DISTNCT StudentID
+FROM IsRegistered
+WHERE Semester = "I-98";
+
+3d.
+
+SELECT LECTURERID
+FROM IsQualified 
+WHERE DateQualified < "01-JAN-2000"
+AND CourseID ="ISM3113";
+
+3e.
+
+SELECT LecturerID
+FROM IsQualified
+WHERE CourseID ="ISM3113"
+AND LecturerID IN (SELECT LecturerID
+                   FROM IsQualified
+                   WHERE CourseID ="ISM3114"
+                   );
+
+3f.
+
+SELECT DISTINCT StudentID,COUNT(*)
+FROM IsRegistered
+GROUP BY StudentID
+HAVING TutorialID = 271
+AND Semester = "I-98";
+
+&
+
+SELECT DISTINCT StudentID, Count(*)
+FROM IsRegistered
+WHERE TutorialID = 271
+AND Semester = "I-98";
+
+
+3g.
+
+SELECT DISTINCT StudentID, Count(*)
+FROM IsRegistered
+WHERE Semester = "I-98";
+
+the so called proper format:
+
+SELECT COUNT(DISTINCT(StudentID))]
+FROM IsRegistered
+WHERE Semester = "I-98";
+
+3h.
+
+INSERT INTO Student 
+VALUES (98765, "Joe Sun");
